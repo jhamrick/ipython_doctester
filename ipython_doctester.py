@@ -188,6 +188,7 @@ class NoStudentNameException(IPythonDoctesterException):
 
 
 def testobj(func):
+    func.func_globals[func.__name__] = func
     tests = finder.find(func)
     if (not tests) or (not tests[0].examples):
         doctest_filename = os.path.join(os.curdir, doctest_path, func.__name__
