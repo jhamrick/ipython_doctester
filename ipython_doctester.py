@@ -30,7 +30,7 @@ import os.path
 import requests
 
 
-from IPython.core.displaypub import publish_display_data
+from IPython.display import display
 
 try:
     from IPython.zmq import displayhook as zmq_displayhook
@@ -89,11 +89,9 @@ class Reporter(object):
         #     IPython.core.displaypub.publish_pretty(self.txt)
 
         if self.html:
-            publish_display_data("ipython_doctester",
-                                 {'text/html': self._repr_html_()})
+            display({'text/html': self._repr_html_()}, raw=True)
         else:
-            publish_display_data("ipython_doctester",
-                                 {'text/plain': self.txt})
+            display({'text/plain': self.txt}, raw=True)
 
     def _repr_html_(self):
         result = self.fail_template if self.failed else self.success_template
